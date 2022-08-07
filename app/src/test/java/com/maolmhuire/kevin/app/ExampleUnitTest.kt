@@ -1,4 +1,4 @@
-package com.maolmhuire.kevin.apilayer
+package com.maolmhuire.kevin.app
 
 import org.junit.Test
 
