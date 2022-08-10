@@ -1,5 +1,6 @@
 package com.maolmhuire.kevin.core.entity
 
-class Currency {
-
-}
+data class Currency(
+    val code: String,
+    val symbol: String
+)

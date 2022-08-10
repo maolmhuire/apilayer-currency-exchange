@@ -10,18 +10,18 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {
-    const val BASE_URL = "https://api.apilayer.com/exchangerates_data/latest"
-    const val TOKEN = "0fiuZFh4"
+    const val BASE_URL = "https://api.apilayer.com/"
+    const val TOKEN = "i1PMfVUbzMxWJlyZ8ONvqnjbdMZnbKYF"
 
     @Singleton
     @Provides
@@ -35,14 +35,14 @@ object ApiModule {
     fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient
             .Builder()
+            .callTimeout(20L, TimeUnit.SECONDS)
             .addInterceptor { chain ->
-                val url = chain
+                val header = chain
                     .request()
-                    .url
                     .newBuilder()
-                    .addQueryParameter("apiKey", TOKEN)
+                    .header("apiKey", TOKEN)
                     .build()
-                chain.proceed(chain.request().newBuilder().url(url).build())
+                chain.proceed(header)
             }
             .addInterceptor(httpLoggingInterceptor)
             .build()

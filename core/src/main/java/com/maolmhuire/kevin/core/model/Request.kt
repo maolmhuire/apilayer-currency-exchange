@@ -2,12 +2,12 @@ package com.maolmhuire.kevin.core.model
 
 data class AvailableCurrencyResponse(
     val success: Boolean,
-    val symbols: HashMap<String, String>?
+    val symbols: Map<String, String>
 )
 
 data class CurrencyConversionResponse(
     val date: String,
-    val historical: String,
+    val historical: String?,
     val info: CurrencyConversionInfo,
     val query: CurrencyConversionQuery,
     val result: Double,

@@ -12,10 +12,10 @@ class CurrencyDataSource(
         service.getCurrencies()
 
     suspend fun exchangeCurrencyValue(
-        page: String,
-        limit: String,
-        sort: String,
-        imgOnly: String?
+        amount: String,
+        from: String,
+        to: String,
+        date: String? = null
     ): Response<CurrencyConversionResponse> =
-        service.convertCurrencyValue(page, limit, sort, imgOnly)
+        service.convertCurrencyValue(amount, from, to, date)
 }

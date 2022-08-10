@@ -8,15 +8,15 @@ import retrofit2.http.Query
 
 interface CurrencyExchangeService {
 
-    @GET("/symbols")
+    @GET("/exchangerates_data/symbols")
     suspend fun getCurrencies(): Response<AvailableCurrencyResponse>
 
-    @GET("/convert")
+    @GET("/exchangerates_data/convert")
     suspend fun convertCurrencyValue(
-        @Query("amount") page: String,
-        @Query("from") limit: String,
-        @Query("to") sort: String,
-        @Query("date") imgOnly: String? = null
+        @Query("amount") amount: String,
+        @Query("from") from: String,
+        @Query("to") to: String,
+        @Query("date") date: String? = null
     ): Response<CurrencyConversionResponse>
 
 }

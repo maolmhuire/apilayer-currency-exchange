@@ -7,9 +7,9 @@ class ExchangeCurrencyUseCase @Inject constructor(
     private val currencyRepo: CurrencyRepo
 ) {
     suspend operator fun invoke(
-        page: String,
-        limit: String,
-        sort: String,
-        imgOnly: String? = null
-    ) = currencyRepo.exchangeCurrencyValue(page, limit, sort, imgOnly)
+        amount: String,
+        from: String,
+        to: String,
+        date: String? = null
+    ) = currencyRepo.exchangeCurrencyValue(amount, from, to, date)
 }
