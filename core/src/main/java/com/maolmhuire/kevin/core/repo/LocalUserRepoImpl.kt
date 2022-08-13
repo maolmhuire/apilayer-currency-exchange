@@ -14,6 +14,8 @@ interface LocalUserRepo {
 
     suspend fun insertBalance(balance: Balance): Long
 
+    suspend fun updateBalance(balance: Balance): Int
+
     suspend fun deleteBalance(balanceId: Long): Int
 
     suspend fun getLocalUserFlow(): Flow<UserDetails>
@@ -28,6 +30,8 @@ class LocalUserRepoImpl(private val dao: LocalUserDao) : LocalUserRepo  {
     override suspend fun insertExchange(exchange: Exchange): Long = dao.insertExchange(exchange)
 
     override suspend fun insertBalance(balance: Balance): Long = dao.insertBalance(balance)
+
+    override suspend fun updateBalance(balance: Balance): Int = dao.updateBalance(balance)
 
     override suspend fun deleteBalance(balanceId: Long): Int = dao.deleteBalance(balanceId)
 

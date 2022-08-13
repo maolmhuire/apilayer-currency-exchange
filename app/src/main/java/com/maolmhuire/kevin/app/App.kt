@@ -35,7 +35,6 @@ class App : Application() {
                     Balance().apply {
                         userId = insert
                         code = "EUR"
-                        symbol = "€"
                         netBalance = 1000.00
                     }
                 )

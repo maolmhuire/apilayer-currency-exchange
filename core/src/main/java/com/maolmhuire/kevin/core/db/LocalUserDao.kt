@@ -19,6 +19,9 @@ interface LocalUserDao {
     @Insert
     suspend fun insertBalance(balance: Balance): Long
 
+    @Update
+    suspend fun updateBalance(balance: Balance): Int
+
     @Query("DELETE FROM balance WHERE id = :balanceId")
     suspend fun deleteBalance(balanceId: Long): Int
 

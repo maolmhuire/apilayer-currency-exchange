@@ -35,9 +35,11 @@ class Balance {
     @ColumnInfo(name = "code")
     var code: String? = null
 
-    @ColumnInfo(name = "symbol")
-    var symbol: String? = null
-
     @ColumnInfo(name = "netBalance")
     var netBalance: Double = 0.0
+    set(value) {
+       if (value >= 0.0) {
+           field = value
+       }
+    }
 }

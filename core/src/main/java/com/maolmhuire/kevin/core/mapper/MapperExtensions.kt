@@ -2,7 +2,6 @@ package com.maolmhuire.kevin.core.mapper
 
 import com.maolmhuire.kevin.core.entity.Exchange
 import com.maolmhuire.kevin.core.entity.Currency
-import com.maolmhuire.kevin.core.entity.ExchangeFee
 import com.maolmhuire.kevin.core.model.AvailableCurrencyResponse
 import com.maolmhuire.kevin.core.model.CurrencyConversionResponse
 
