@@ -1,5 +1,7 @@
 package com.maolmhuire.kevin.core.usecase
 
+import com.maolmhuire.kevin.core.entity.Exchange
+import com.maolmhuire.kevin.core.entity.ResultState
 import com.maolmhuire.kevin.core.repo.CurrencyRepo
 import javax.inject.Inject
 
@@ -11,5 +13,5 @@ class ExchangeCurrencyUseCase @Inject constructor(
         from: String,
         to: String,
         date: String? = null
-    ) = currencyRepo.exchangeCurrencyValue(amount, from, to, date)
+    ): ResultState<Exchange> = currencyRepo.exchangeCurrencyValue(amount, from, to, date)
 }

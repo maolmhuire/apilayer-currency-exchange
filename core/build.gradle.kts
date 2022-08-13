@@ -42,10 +42,16 @@ dependencies {
     kapt(Deps.hiltCompiler)
     implementation(Deps.hiltNavFrag)
 
+    // Retrofit:
     implementation(Deps.retrofit)
     implementation(Deps.retrofitInterceptor)
     implementation(Deps.retrofitConverter)
     implementation(Deps.moshiKotlin)
+
+    // Room:
+    implementation(Deps.roomRuntime)
+    implementation(Deps.roomKtx)
+    kapt(Deps.roomCompiler)
 
     testImplementation(Deps.junit)
     androidTestImplementation(Deps.testExtJunit)

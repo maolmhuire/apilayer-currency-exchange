@@ -4,13 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maolmhuire.kevin.core.entity.Exchange
-import com.maolmhuire.kevin.core.entity.Currency
-import com.maolmhuire.kevin.core.entity.ResultState
-import com.maolmhuire.kevin.core.entity.User
+import com.maolmhuire.kevin.core.db.LocalUserDao
+import com.maolmhuire.kevin.core.entity.*
 import com.maolmhuire.kevin.core.usecase.ExchangeCurrencyUseCase
 import com.maolmhuire.kevin.core.usecase.GetAvailableCurrenciesUseCase
-import com.maolmhuire.kevin.core.usecase.GetUserDataUseCase
+import com.maolmhuire.kevin.core.usecase.GetLocalUserFlowUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,18 +16,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExchangeCurrencyViewModel @Inject constructor(
+    private val db: LocalUserDao,
     private val exchangeUseCase: ExchangeCurrencyUseCase,
     private val availableUseCase: GetAvailableCurrenciesUseCase,
-    private val userDataUseCase: GetUserDataUseCase
+    private val userDataUseCase: GetLocalUserFlowUseCase
 ) : ViewModel() {
 
     private val _currencies: MutableLiveData<ResultState<List<Currency>>> =
         MutableLiveData<ResultState<List<Currency>>>()
     val currencies: LiveData<ResultState<List<Currency>>> = _currencies
 
-    private val _userData: MutableLiveData<ResultState<User>> =
-        MutableLiveData<ResultState<User>>()
-    val userData: LiveData<ResultState<User>> = _userData
+    private val _userData: MutableLiveData<ResultState<UserDetails>> =
+        MutableLiveData<ResultState<UserDetails>>()
+    val userData: LiveData<ResultState<UserDetails>> = _userData
 
     private val _exchange: MutableLiveData<ResultState<Exchange>> =
         MutableLiveData<ResultState<Exchange>>()
@@ -53,7 +52,7 @@ class ExchangeCurrencyViewModel @Inject constructor(
         _userData.postValue(ResultState.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             userDataUseCase().run {
-                _userData.postValue(this)
+                // _userData.postValue(this)
             }
         }
     }

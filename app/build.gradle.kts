@@ -75,6 +75,11 @@ dependencies {
     implementation(Deps.retrofitConverter)
     implementation(Deps.moshiKotlin)
 
+    // Room:
+    implementation(Deps.roomRuntime)
+    implementation(Deps.roomKtx)
+    kapt(Deps.roomCompiler)
+
     implementation(Deps.materialDesign)
 
     // UI:

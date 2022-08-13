@@ -35,6 +35,10 @@ object Deps {
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
     const val appcompat = "androidx.appcompat:appcompat:1.4.2"
 
+    const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
+    const val roomCompiler =  "androidx.room:room-compiler:${Versions.room}"
+    const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+
     // Compose:
     const val composeUi = "androidx.compose.ui:ui:${Versions.compose_version}"
     const val composeMaterial = "androidx.compose.material:material:${Versions.compose_version}"

@@ -1,14 +1,20 @@
 package com.maolmhuire.kevin.core.di
 
+import android.content.Context
+import androidx.room.Room
 import com.maolmhuire.kevin.core.apiservice.CurrencyExchangeService
-import com.maolmhuire.kevin.core.datasource.CurrencyDataSource
+import com.maolmhuire.kevin.core.db.AppDatabase
+import com.maolmhuire.kevin.core.db.LocalUserDao
 import com.maolmhuire.kevin.core.repo.CurrencyRepo
 import com.maolmhuire.kevin.core.repo.CurrencyRepoImpl
+import com.maolmhuire.kevin.core.repo.LocalUserRepo
+import com.maolmhuire.kevin.core.repo.LocalUserRepoImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,8 +26,33 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {
+
     const val BASE_URL = "https://api.apilayer.com/"
     const val TOKEN = "i1PMfVUbzMxWJlyZ8ONvqnjbdMZnbKYF"
+
+    @Provides
+    @Singleton
+    fun providesDatabase(@ApplicationContext context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "kevin-db"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesLocalUserDao(appDatabase: AppDatabase): LocalUserDao {
+        return appDatabase.localUserDao()
+    }
+
+    @Provides
+    @Singleton
+    fun providesLocalUserRepo(localUserDao: LocalUserDao): LocalUserRepo {
+        return LocalUserRepoImpl(localUserDao)
+    }
 
     @Singleton
     @Provides
@@ -69,6 +100,6 @@ object ApiModule {
     @Singleton
     @Provides
     fun providesCurrencyRepo(currencyExchangeService: CurrencyExchangeService): CurrencyRepo =
-        CurrencyRepoImpl(CurrencyDataSource(currencyExchangeService))
+        CurrencyRepoImpl(currencyExchangeService)
 
 }

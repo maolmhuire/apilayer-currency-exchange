@@ -12,7 +12,7 @@ interface CurrencyExchangeService {
     suspend fun getCurrencies(): Response<AvailableCurrencyResponse>
 
     @GET("/exchangerates_data/convert")
-    suspend fun convertCurrencyValue(
+    suspend fun exchangeCurrencyValue(
         @Query("amount") amount: String,
         @Query("from") from: String,
         @Query("to") to: String,

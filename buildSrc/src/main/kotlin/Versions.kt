@@ -10,4 +10,5 @@ object Versions {
     const val retrofit = "2.9.0"
     const val compose_version = "1.2.0"
     const val jvmTarget = "1.8"
+    const val room = "2.4.3"
 }
