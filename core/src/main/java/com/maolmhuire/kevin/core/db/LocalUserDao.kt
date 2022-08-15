@@ -27,7 +27,7 @@ interface LocalUserDao {
 
     @Transaction
     @Query("SELECT * FROM user LIMIT 1")
-    fun getLocalUserFlow(): Flow<UserDetails>
+    fun getLocalUserFlow(): Flow<UserDetails?>
 
     @Transaction
     @Query("SELECT * FROM user LIMIT 1")

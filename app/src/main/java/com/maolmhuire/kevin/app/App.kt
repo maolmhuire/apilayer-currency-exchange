@@ -5,11 +5,10 @@ import com.maolmhuire.kevin.core.db.LocalUserDao
 import com.maolmhuire.kevin.core.entity.Balance
 import com.maolmhuire.kevin.core.entity.User
 import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 
 @HiltAndroidApp
 class App : Application() {
@@ -25,12 +24,12 @@ class App : Application() {
         mockUserData()
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    fun mockUserData() {
-        GlobalScope.launch {
+    private fun mockUserData() {
+        CoroutineScope(Dispatchers.IO).launch {
             val user = localUserDao.getUser()
-            if (user != null) {
-                val insert = localUserDao.insertUser(User().apply { name = "Caoimhín Ó Maolmhuire" })
+            if (user == null) {
+                val insert =
+                    localUserDao.insertUser(User().apply { name = "Caoimhín Ó Maolmhuire" })
                 localUserDao.insertBalance(
                     Balance().apply {
                         userId = insert

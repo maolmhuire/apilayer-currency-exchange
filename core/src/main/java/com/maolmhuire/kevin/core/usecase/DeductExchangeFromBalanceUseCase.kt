@@ -34,14 +34,17 @@ class DeductExchangeFromBalanceUseCase @Inject constructor(
         } ?: ResultState.Error(NegativeBalanceException("Negative account balance"))
 
         val toExchangeValue = (exchange.result - fee.toValueFee)
-        val toBalance = usrDtls.balances.find { it.code == exchange.to }?.apply {
+        usrDtls.balances.find { it.code == exchange.to }?.apply {
             netBalance += toExchangeValue
+
+            localUserRepo.updateBalance(balance = this)
         } ?: Balance().apply {
             userId = requireNotNull(usrDtls.user?.id)
             code = exchange.to
             netBalance = toExchangeValue
+
+            localUserRepo.insertBalance(balance = this)
         }
-        localUserRepo.updateBalance(balance = toBalance)
 
         return ResultState.Success(exchange)
     }

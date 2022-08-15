@@ -15,11 +15,10 @@ class GetCurrencyExchangeFeeUseCase @Inject constructor(
     suspend operator fun invoke(exchange: Exchange): ResultState<Exchange> {
         with(exchange) {
             val usr = requireNotNull(localUserRepo.getUser())
-            val builder = ExchangeFeeBuilder(
-                usr.exchanges.count { DateUtils.isToday(it.timestamp) },
-                from,
-                to
-            )
+            val count = usr.exchanges.count {
+                DateUtils.isToday(it.timestamp * DateUtils.SECOND_IN_MILLIS)
+            }
+            val builder = ExchangeFeeBuilder(count, from, to)
 
             if (builder.canCalculateFeeLocally()) {
                 fee = builder.calculateFeesLocal(this.amount, rate)

@@ -28,7 +28,7 @@ import javax.inject.Singleton
 object ApiModule {
 
     const val BASE_URL = "https://api.apilayer.com/"
-    const val TOKEN = "i1PMfVUbzMxWJlyZ8ONvqnjbdMZnbKYF"
+    const val TOKEN = "JYyXpU0yQbPtkjasBs1B9rZhdBGW0mm0"
 
     @Provides
     @Singleton
