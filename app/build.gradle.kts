@@ -60,7 +60,10 @@ dependencies {
     // Compose:
     implementation(Deps.composeUi)
     implementation(Deps.composeMaterial)
+    implementation(Deps.composeFoundation)
     implementation(Deps.composeTooling)
+    implementation(Deps.composeLifecycle)
+    implementation(Deps.composeLiveData)
     implementation(Deps.composeActivity)
     androidTestImplementation(Deps.composeJunitTest)
     debugImplementation(Deps.debugComposeUiTooling)

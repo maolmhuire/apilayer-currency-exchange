@@ -10,4 +10,7 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="exchange_subtitle">Exchange from your currency balance:</string>
+    <string name="exchange_from_label">Exchange From:</string>
+    <string name="exchange_to_label">Exchange To:</string>
 </resources>

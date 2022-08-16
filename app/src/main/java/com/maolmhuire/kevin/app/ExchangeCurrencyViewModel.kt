@@ -23,8 +23,7 @@ class ExchangeCurrencyViewModel @Inject constructor(
         MutableLiveData<ResultState<List<Currency>>>()
     val currencies: LiveData<ResultState<List<Currency>>> = _currencies
 
-    val userData: LiveData<UserDetails?> =
-        userDataUseCase.invoke().asLiveData()
+    val userData: LiveData<UserDetails?> = userDataUseCase.invoke().asLiveData()
 
     private val _exchange: MutableLiveData<ResultState<Exchange>> =
         MutableLiveData<ResultState<Exchange>>()
