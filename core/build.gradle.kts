@@ -55,4 +55,5 @@ dependencies {
 
     testImplementation(Deps.junit)
     androidTestImplementation(Deps.testExtJunit)
+    testImplementation(Deps.testKotlinCoroutines)
 }

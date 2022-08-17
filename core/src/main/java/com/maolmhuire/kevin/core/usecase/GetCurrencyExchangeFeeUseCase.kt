@@ -1,6 +1,5 @@
 package com.maolmhuire.kevin.core.usecase
 
-import android.text.format.DateUtils
 import com.maolmhuire.kevin.core.entity.Exchange
 import com.maolmhuire.kevin.core.entity.ExchangeFeeBuilder
 import com.maolmhuire.kevin.core.entity.ResultState
@@ -12,11 +11,11 @@ class GetCurrencyExchangeFeeUseCase @Inject constructor(
     private val currencyRepo: CurrencyRepo,
     private val localUserRepo: LocalUserRepo
 ) {
-    suspend operator fun invoke(exchange: Exchange): ResultState<Exchange> {
+    suspend operator fun invoke(exchange: Exchange, isToday: (timestamp: Long) -> Boolean): ResultState<Exchange> {
         with(exchange) {
             val usr = requireNotNull(localUserRepo.getUser())
             val count = usr.exchanges.count {
-                DateUtils.isToday(it.timestamp * DateUtils.SECOND_IN_MILLIS)
+                isToday(it.timestamp * 1000L)
             }
             val builder = ExchangeFeeBuilder(count, from, to)
 

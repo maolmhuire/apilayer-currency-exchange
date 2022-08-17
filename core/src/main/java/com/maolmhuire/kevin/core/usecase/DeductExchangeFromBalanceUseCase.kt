@@ -7,6 +7,8 @@ import com.maolmhuire.kevin.core.exception.NegativeBalanceException
 import com.maolmhuire.kevin.core.exception.NullBalanceException
 import com.maolmhuire.kevin.core.exception.NullFeeException
 import com.maolmhuire.kevin.core.repo.LocalUserRepo
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class DeductExchangeFromBalanceUseCase @Inject constructor(
