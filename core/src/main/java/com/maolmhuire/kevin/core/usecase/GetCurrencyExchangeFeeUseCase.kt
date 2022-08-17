@@ -21,7 +21,7 @@ class GetCurrencyExchangeFeeUseCase @Inject constructor(
             val builder = ExchangeFeeBuilder(count, from, to)
 
             if (builder.canCalculateFeeLocally()) {
-                fee = builder.calculateFeesLocal(this.amount, rate)
+                fee = builder.calculateFeesLocal(amount, result, rate)
                 return ResultState.Success(this)
             } else {
                 when (val euroExtraFee = currencyRepo.getExchangeEuroFeeRemote(to)) {

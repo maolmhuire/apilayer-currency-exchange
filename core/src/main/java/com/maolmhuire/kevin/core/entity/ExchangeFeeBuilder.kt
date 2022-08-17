@@ -14,10 +14,15 @@ class ExchangeFeeBuilder(
 
     fun calculateFeesLocal(
         exchangeAmount: Double,
+        exchangeResult: Double,
         rate: Double
     ): ExchangeFee {
         return if (exchangesToday > 15 && isEuroExchange()) {
-            ExchangeFee(fromValueFee = 0.0, toValueFee = calculateLocalEuroValueExchangeFee(rate))
+            // We can work it out locally, in this case.
+            calculateFeesWithRemoteEuroFee(
+                exchangeResult,
+                calculateLocalEuroValueExchangeFee(rate)
+            )
         } else if (exchangesToday > 5) {
             ExchangeFee(fromValueFee = exchangeAmount * LESS_THAN_5_EXCHANGES_RATE, toValueFee = 0.0)
         } else {

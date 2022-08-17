@@ -1,29 +1,30 @@
 package com.maolmhuire.kevin.app
 
-import android.widget.NumberPicker
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.maolmhuire.kevin.core.entity.Currency
+import com.maolmhuire.kevin.core.entity.Exchange
+import com.maolmhuire.kevin.core.entity.ResultState
 import timber.log.Timber
 
 
 @Composable
 fun ExchangeForm(
-    onSubmit: (selectedFrom: String, selectedTo: String, amount: String) -> Unit,
+    exchange: ResultState<Exchange>?,
     accountCurrencies: List<String>,
-    currenciesAvailable: List<String>
+    currenciesAvailable: List<String>,
+    onSubmit: (selectedFrom: String, selectedTo: String, amount: String) -> Unit
 ) {
-    var selectedFromCurrency by remember { mutableStateOf("") }
-    var selectedToCurrency by remember { mutableStateOf("") }
+
+    var selectedFromCurrency by remember { mutableStateOf(accountCurrencies.getOrNull(0) ?: "") }
+    var selectedToCurrency by remember { mutableStateOf(currenciesAvailable.getOrNull(0) ?: "") }
     var amountEntered by remember { mutableStateOf("") }
     val regex = "\\d+\\.?\\d*".toRegex()
 
@@ -53,7 +54,9 @@ fun ExchangeForm(
                 }
             }
         }
+
         Spacer(modifier = Modifier.height(20.dp))
+
         CurrencyValueInput(
             input = amountEntered,
             onValueChanged = {
@@ -62,13 +65,17 @@ fun ExchangeForm(
                 }
             }
         )
+
         Spacer(modifier = Modifier.height(20.dp))
-        SubmitButton {
-            onSubmit(
-                selectedFromCurrency,
-                selectedToCurrency,
-                amountEntered
-            )
+
+        if (exchange !is ResultState.Loading) {
+            SubmitButton {
+                onSubmit(
+                    selectedFromCurrency,
+                    selectedToCurrency,
+                    amountEntered
+                )
+            }
         }
     }
 }
@@ -135,8 +142,9 @@ fun CurrencyValueInput(input: String, onValueChanged: (String) -> Unit) {
             .fillMaxWidth()
             .padding(start = 8.dp, end = 8.dp),
         onValueChange = onValueChanged,
-        label = { Text("Amount:") },
+        label = { Text(stringResource(R.string.amount_subtitle)) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+
         colors = TextFieldDefaults.textFieldColors(
             focusedLabelColor = MaterialTheme.colors.secondaryVariant,
             focusedIndicatorColor = MaterialTheme.colors.secondaryVariant
@@ -155,7 +163,7 @@ fun SubmitButton(
         Button(
             onClick = onClick
         ) {
-            Text(text = "Exchange Currency")
+            Text(text = stringResource(R.string.exchange_currency))
         }
     }
 }

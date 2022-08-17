@@ -33,6 +33,10 @@ class ExchangeCurrencyViewModel @Inject constructor(
         getCurrencies()
     }
 
+    fun retryCurrencies() {
+        getCurrencies()
+    }
+
     private fun getCurrencies() {
         _currencies.postValue(ResultState.Loading)
         viewModelScope.launch(Dispatchers.IO) {

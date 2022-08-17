@@ -1,16 +1,20 @@
 <resources>
     <string name="app_name">kevin. App</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_main2">MainActivity2</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="exchange_subtitle">Exchange from your currency balance:</string>
     <string name="exchange_from_label">Exchange From:</string>
     <string name="exchange_to_label">Exchange To:</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="exchange_currency">Exchange Currency</string>
+    <string name="amount_subtitle">Amount:</string>
+    <string name="success">Success</string>
+    <string name="error">Error</string>
+    <string name="unexpected_error_message">Unfortunately, the app has run into an unexpected error. Please restart and try again.</string>
+    <string name="negative_balance_message">This exchange would result in a negative balance and cannot be completed.</string>
+    <string name="currency_list_error">There was an issue loading a list of exchange currencies. Would you like to retry?</string>
+    <string name="retry">Retry</string>
+    <string name="exchange_success_message">You have converted %s to %s. Commission Fee - %s.</string>
+    <string name="network_error_message">Unfortunately, there appears to be network issues. Please try again.</string>
 </resources>
