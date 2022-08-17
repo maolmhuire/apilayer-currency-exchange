@@ -7,9 +7,9 @@ class ExchangeFeeBuilder(
 ) {
 
     companion object {
-        private const val LESS_THAN_5_EXCHANGES_RATE = 0.007
-        private const val GREATER_THAN_15_EXCHANGES_BASE_RATE = 0.012
-        private const val ADDITIONAL_EURO_EQUIV_FEE_RATE = 0.3
+        const val GREATER_THAN_5_EXCHANGES_RATE = 0.007
+        const val GREATER_THAN_15_EXCHANGES_BASE_RATE = 0.012
+        const val ADDITIONAL_EURO_EQUIV_FEE_RATE = 0.3
     }
 
     fun calculateFeesLocal(
@@ -24,7 +24,7 @@ class ExchangeFeeBuilder(
                 calculateLocalEuroValueExchangeFee(rate)
             )
         } else if (exchangesToday > 5) {
-            ExchangeFee(fromValueFee = exchangeAmount * LESS_THAN_5_EXCHANGES_RATE, toValueFee = 0.0)
+            ExchangeFee(fromValueFee = exchangeAmount * GREATER_THAN_5_EXCHANGES_RATE, toValueFee = 0.0)
         } else {
             ExchangeFee(fromValueFee = 0.0, toValueFee = 0.0)
         }

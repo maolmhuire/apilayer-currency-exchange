@@ -1,5 +1,6 @@
 package com.maolmhuire.kevin.app
 
+import android.text.format.DateUtils
 import androidx.lifecycle.*
 import com.maolmhuire.kevin.core.db.LocalUserDao
 import com.maolmhuire.kevin.core.entity.*
@@ -81,7 +82,7 @@ class ExchangeCurrencyViewModel @Inject constructor(
     }
 
     private suspend fun getExchangeFee(data: Exchange) {
-        with(exchangeFeeUseCase(data)) {
+        with(exchangeFeeUseCase(data) { DateUtils.isToday(it) }) {
             if (this is ResultState.Success) {
                 deductFeeFromBalance(this.data)
             } else {
