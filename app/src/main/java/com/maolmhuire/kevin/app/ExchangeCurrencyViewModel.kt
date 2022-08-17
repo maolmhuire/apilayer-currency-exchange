@@ -5,8 +5,8 @@ import com.maolmhuire.kevin.core.db.LocalUserDao
 import com.maolmhuire.kevin.core.entity.*
 import com.maolmhuire.kevin.core.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,6 +29,8 @@ class ExchangeCurrencyViewModel @Inject constructor(
         MutableLiveData<ResultState<Exchange>>()
     val exchange: LiveData<ResultState<Exchange>> = _exchange
 
+    private val refreshCurrenciesJob: Job = refreshCurrencies()
+
     init {
         getCurrencies()
     }
@@ -42,6 +44,20 @@ class ExchangeCurrencyViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             availableUseCase().run {
                 _currencies.postValue(this)
+            }
+        }
+    }
+
+    private fun refreshCurrencies(): Job {
+        return CoroutineScope(Dispatchers.IO).launch {
+            while (true) {
+                delay(60 * 1000)
+                availableUseCase().run {
+                    if (this is ResultState.Success) {
+                        _currencies.postValue(this)
+                    }
+                }
+                Timber.d("Refresh Job")
             }
         }
     }
@@ -81,5 +97,10 @@ class ExchangeCurrencyViewModel @Inject constructor(
             }
             _exchange.postValue(this)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        refreshCurrenciesJob.cancel()
     }
 }
